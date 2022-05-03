@@ -17,9 +17,15 @@ async function run() {
         await client.connect();
         const warehouseCollection = client.db('warehouseManagement').collection('products');
 
-        app.get('/inventories', async (req, res) => {
+        app.get('/allProducts', async (req, res) => {
             const query = {};
             const cursor = warehouseCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+        app.get('/demoProducts', async (req, res) => {
+            const query = {};
+            const cursor = warehouseCollection.find(query).limit(6);
             const result = await cursor.toArray();
             res.send(result)
         })
