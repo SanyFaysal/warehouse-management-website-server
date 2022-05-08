@@ -38,6 +38,14 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/myProducts', async (req, res) => {
+            const email = req.query.email;
+            const query = { email };
+            const cursor = warehouseCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result)
+
+        })
         app.put('/products/:id', async (req, res) => {
             const id = req.params.id;
             const updateProduct = req.body;
